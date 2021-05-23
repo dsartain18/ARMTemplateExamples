@@ -1,0 +1,38 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environment": {
+      "type": "string",
+      "metadata": {
+        "description": "Environment name will be appeneded to the end of all created resource names"
+      }
+    },
+    "appServiceName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the app service plan"
+      }
+    }
+  },
+  "variables": {
+    "appServiceName": "[concat(parameters('appServiceName'), '-', parameters('environment'))]"
+  },
+  "resources": [
+    {
+      "name": "[variables('appServiceName')]",
+      "type": "Microsoft.Insights/components",
+      "apiVersion": "2015-05-01",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "Application Insights"
+      },
+      "kind": "other",
+      "properties": {
+        "Application_Type": "other"
+      }
+    }
+  ],
+  "outputs": {
+  }
+}

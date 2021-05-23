@@ -1,0 +1,116 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environment": {
+      "type": "string",
+      "metadata": {
+        "description": "Environment name will be appeneded to the end of all created resource names"
+      }
+    },
+    "appServicePlanName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the app service plan"
+      }
+    },
+    "sku": {
+      "type": "string",
+      "defaultValue": "Free",
+      "metadata": {
+        "description": "The Name of App Service Plan."
+      }
+    },
+    "skuCode": {
+      "type": "string",
+      "defaultValue": "F1",
+      "metadata": {
+        "description": "The SKU of the App Service Plan"
+      }
+    },
+    "language": {
+      "type": "string",
+      "defaultValue": ".net",
+      "allowedValues": [
+        ".net",
+        "php",
+        "node",
+        "html"
+      ],
+      "metadata": {
+        "description": "The language stack of the app."
+      }
+    },
+    "workerSize": {
+      "type": "string",
+      "defaultValue": "0",
+      "metadata": {
+        "description": ""
+      }
+    },
+    "workerSizeId": {
+      "type": "int",
+      "defaultValue": 0,
+      "metadata": {
+        "description": ""
+      }
+    },
+    "numberOfWorkers": {
+      "type": "string",
+      "defaultValue": "1",
+      "metadata": {
+        "description": ""
+      }
+    },
+    "appServiceName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the app service plan"
+      }
+    }
+  },
+  "variables": {
+    "appServicePlanName": "[reference('appServicePlanTemplate').outputs.appServicePlanName.value]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "appServicePlanTemplate",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "relativePath": "AppServicePlan/AppServicePlan.json"
+        },
+        "parameters": {
+          "environment": {
+            "value": "[parameters('environment')]"
+          },
+          "appServicePlanName": {
+            "value": "[parameters('appServicePlanName')]"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "applicationInsightsTemplate",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "relativePath": "ApplicationInsights/ApplicationInsights.json"
+        },
+        "parameters": {
+          "environment": {
+            "value": "[parameters('environment')]"
+          },
+          "appServiceName": {
+            "value": "[parameters('appServiceName')]"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {}
+}
