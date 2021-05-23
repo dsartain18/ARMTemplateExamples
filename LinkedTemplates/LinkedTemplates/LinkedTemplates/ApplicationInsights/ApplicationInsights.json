@@ -15,12 +15,9 @@
       }
     }
   },
-  "variables": {
-    "appServiceName": "[concat(parameters('appServiceName'), '-', parameters('environment'))]"
-  },
   "resources": [
     {
-      "name": "[variables('appServiceName')]",
+      "name": "[parameters('appServiceName')]",
       "type": "Microsoft.Insights/components",
       "apiVersion": "2015-05-01",
       "location": "[resourceGroup().location]",

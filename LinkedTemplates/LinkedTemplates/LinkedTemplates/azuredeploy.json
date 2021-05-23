@@ -70,7 +70,8 @@
     }
   },
   "variables": {
-    "appServicePlanName": "[reference('appServicePlanTemplate').outputs.appServicePlanName.value]"
+    "appServicePlanName": "[concat(parameters('appServicePlanName'), '-', parameters('environment'))]",
+    "appServiceName": "[concat(parameters('appServiceName'), '-', parameters('environment'))]"
   },
   "resources": [
     {
@@ -87,7 +88,7 @@
             "value": "[parameters('environment')]"
           },
           "appServicePlanName": {
-            "value": "[parameters('appServicePlanName')]"
+            "value": "[variables('appServicePlanName')]"
           }
         }
       }
@@ -106,7 +107,7 @@
             "value": "[parameters('environment')]"
           },
           "appServiceName": {
-            "value": "[parameters('appServiceName')]"
+            "value": "[variables('appServiceName')]"
           }
         }
       }
