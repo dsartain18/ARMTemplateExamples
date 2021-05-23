@@ -25,13 +25,13 @@
   <ItemGroup>
     <Content Include="azuredeploy.json" />
     <Content Include="azuredeploy.parameters-Dev.json" />
-    <None Include="ApplicationInsights\ApplicationInsights.json" />
-    <None Include="AppServicePlan\AppServicePlan.json" />
+    <Content Include="ApplicationInsights\ApplicationInsights.json" />
+    <Content Include="AppServicePlan\AppServicePlan.json" />
     <None Include="Deployment.targets">
       <Visible>False</Visible>
     </None>
     <Content Include="Deploy-AzureResourceGroup.ps1" />
-    <None Include="AppService\AppService.json" />
+    <Content Include="AppService\AppService.json" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
 </Project>
